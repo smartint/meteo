@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1f33">
+<title>Monitor Estación Meteorológica CEIP Santa Bárbara</title>
+<style>
+:root{color-scheme:dark;--bg:#071421;--bg2:#0a1c2c;--glow:#123a59;--panel:#0d2236;--panel2:#112b43;--panelSolid:#0d2236;--panelHead:#132e47;--input:#071827;--soft:#0a1d2e;--soft2:#102a40;--button:#173651;--line:#25435e;--border:rgba(112,169,209,.19);--gridline:rgba(155,178,197,.18);--text:#eef7ff;--muted:#9bb2c5;--accent:#45c3ff;--accentFill:rgba(69,195,255,.34);--accentFade:rgba(69,195,255,0);--selectionLine:rgba(255,255,255,.45);--good:#41d39a;--warn:#ffbf4b;--bad:#ff667a;--shadow:0 14px 38px rgba(0,0,0,.28);--overlay:rgba(0,0,0,.62);--toastBg:#eef7ff;--toastText:#0a1a29}
+html[data-theme="light"]{color-scheme:light;--bg:#eef5fb;--bg2:#dcebf7;--glow:#c7e6f8;--panel:#ffffff;--panel2:#f6fbff;--panelSolid:#ffffff;--panelHead:#e9f3fb;--input:#ffffff;--soft:#f1f7fc;--soft2:#e7f1f8;--button:#dbeaf5;--line:#adc6d8;--border:rgba(38,91,127,.18);--gridline:rgba(39,76,102,.16);--text:#102738;--muted:#587286;--accent:#1678b8;--accentFill:rgba(22,120,184,.22);--accentFade:rgba(22,120,184,0);--selectionLine:rgba(15,40,60,.42);--good:#16875f;--warn:#b66b00;--bad:#c3364c;--shadow:0 12px 30px rgba(35,74,103,.13);--overlay:rgba(20,41,57,.42);--toastBg:#102738;--toastText:#ffffff}
+html[data-theme="dark"]{color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,var(--glow) 0,transparent 32%),linear-gradient(160deg,var(--bg),var(--bg2) 55%,var(--bg));color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}.app{max-width:1250px;margin:auto;padding:18px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#3ed6ff,#2b7cff);box-shadow:0 10px 26px rgba(69,195,255,.28);font-size:27px}.brand h1{font-size:clamp(20px,3vw,30px);margin:0}.brand p{margin:2px 0 0;color:var(--muted)}button,.btn{border:0;border-radius:12px;background:var(--button);color:var(--text);padding:11px 14px;font-weight:700;cursor:pointer;transition:.2s}button:hover{transform:translateY(-1px);filter:brightness(1.1)}button.primary{background:linear-gradient(135deg,#2b85ff,#38c9ff);color:#03111d}.channelbar{display:flex;align-items:end;gap:12px;margin-bottom:14px;padding:14px 16px;background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--border);box-shadow:var(--shadow);border-radius:18px}.channelbar .field{flex:1}.channelbar select{width:100%;border:1px solid var(--line);background:var(--input);color:var(--text);padding:11px;border-radius:10px;font-weight:700}.channelInfo{color:var(--muted);font-size:12px;margin-top:5px}.statusbar{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:12px;margin-bottom:16px}.statusitem,.card,.chartcard,.settings{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--border);box-shadow:var(--shadow);border-radius:18px}.statusitem{padding:14px 16px}.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.value{font-size:18px;font-weight:800;margin-top:3px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;background:var(--warn);box-shadow:0 0 14px currentColor}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:17px;position:relative;overflow:hidden}.card:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-25px;top:-25px;background:rgba(69,195,255,.07)}.metrichead{display:flex;justify-content:space-between;align-items:center}.metricicon{font-size:25px}.metricvalue{font-size:clamp(30px,5vw,48px);font-weight:850;letter-spacing:-.04em;margin:12px 0 2px}.unit{font-size:17px;color:var(--muted);font-weight:600}.sub{color:var(--muted);font-size:13px}.meter{height:7px;background:var(--input);border-radius:10px;margin-top:13px;overflow:hidden}.meter>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#41d39a,#45c3ff);border-radius:inherit;transition:width .5s}.charts{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:14px}.chartcard{padding:16px}.charthead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.charthead h2{font-size:16px;margin:0}.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{padding:7px 10px;font-size:12px}.seg button.active{background:#2c83d5}.chartwrap{height:290px;position:relative;touch-action:manipulation}.chartwrap canvas{width:100%;height:100%;cursor:crosshair}.selectionPanel{margin-top:12px;padding:13px 14px;border:1px solid rgba(112,169,209,.22);border-radius:14px;background:var(--soft)}.selectionTitle{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}.selectionTitle b{font-size:14px}.selectionTitle span{color:var(--muted);font-size:12px}.selectionGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.selectionItem{padding:9px 10px;border-radius:10px;background:var(--soft2)}.selectionItem .k{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em}.selectionItem .v{display:block;font-weight:800;margin-top:2px}.selectionHint{color:var(--muted);font-size:12px;text-align:center;padding:5px}.alerts{min-height:290px}.alert{padding:12px;border-radius:12px;margin:9px 0;background:var(--soft);border-left:4px solid var(--good)}.alert.warn{border-left-color:var(--warn)}.alert.bad{border-left-color:var(--bad)}.alert b{display:block}.footer{color:var(--muted);text-align:center;font-size:12px;margin:18px 0 6px}.modal{position:fixed;inset:0;background:var(--overlay);display:none;place-items:center;padding:16px;z-index:20}.modal.open{display:grid}.settings{width:min(620px,100%);padding:20px;max-height:92vh;overflow:auto}.settings h2{margin-top:0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.field input,.field select{width:100%;border:1px solid var(--line);background:var(--input);color:var(--text);padding:11px;border-radius:10px}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;flex-wrap:wrap}.notice{padding:11px 13px;border-radius:12px;background:var(--soft2);color:var(--text);margin:10px 0}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);opacity:0;background:var(--toastBg);color:var(--toastText);padding:10px 16px;border-radius:12px;font-weight:700;transition:.3s;z-index:30}.toast.show{transform:translateX(-50%) translateY(0);opacity:1}.empty{color:var(--muted);display:grid;place-items:center;height:100%;text-align:center;padding:20px}.forecastSection{margin-top:14px}.forecastToolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.forecastGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.forecastStat{padding:12px;border-radius:13px;background:var(--soft);border:1px solid rgba(112,169,209,.18)}.forecastStat .big{font-size:23px;font-weight:850;margin-top:4px}.forecastTableWrap{max-height:350px;overflow:auto;border:1px solid rgba(112,169,209,.18);border-radius:13px;margin-top:12px}.forecastTable{width:100%;border-collapse:collapse;min-width:680px}.forecastTable th,.forecastTable td{padding:9px 10px;text-align:right;border-bottom:1px solid rgba(112,169,209,.13);font-variant-numeric:tabular-nums}.forecastTable th:first-child,.forecastTable td:first-child{text-align:left;position:sticky;left:0;background:var(--panelSolid)}.forecastTable thead th{position:sticky;top:0;background:var(--panelHead);z-index:2}.forecastTable thead th:first-child{z-index:3}.confidence{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:var(--button)}.hidden{display:none!important}
+@media(max-width:850px){.statusbar{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr 1fr}.charts{grid-template-columns:1fr}.forecastGrid{grid-template-columns:1fr 1fr}.topbar{align-items:flex-start}.brand p{display:none}}
+@media(max-width:560px){.app{padding:12px}.channelbar{align-items:stretch;flex-direction:column}.grid,.statusbar,.formgrid{grid-template-columns:1fr}.forecastGrid{grid-template-columns:1fr 1fr}.selectionGrid{grid-template-columns:1fr 1fr}.topbar{gap:8px}.logo{width:44px;height:44px}.topbar .actionsTop{display:flex;gap:6px}.topbar button{padding:10px}.metricvalue{font-size:40px}}
+@media print{body{background:#fff;color:#111}.topbar button,.seg,.footer{display:none}.statusitem,.card,.chartcard{box-shadow:none;border:1px solid #bbb;background:#fff;color:#111}.label,.sub,.brand p{color:#555}.app{max-width:none}.charts{grid-template-columns:2fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo">🌦️</div><div><h1>Estación Meteorológica</h1><p id="brandSubtitle">CEIP Santa Bárbara · ESP32 + ThingSpeak</p></div></div>
+    <div class="actionsTop"><button id="themeBtn" title="Cambiar tema">🌙 Oscuro</button> <button id="forecastBtn">🔮 Previsión 24 h</button> <button id="refreshBtn" class="primary">↻ Actualizar</button> <button id="settingsBtn">⚙ Ajustes</button></div>
+  </header>
+
+
+  <section class="statusbar">
+    <div class="statusitem"><div class="label">Estado de la estación</div><div class="value"><span id="statusDot" class="dot"></span><span id="stationStatus">Sin comprobar</span></div></div>
+    <div class="statusitem"><div class="label">Última lectura</div><div id="lastReading" class="value">—</div></div>
+    <div class="statusitem"><div class="label">Próximo dato esperado</div><div id="nextRefresh" class="value">—</div><div id="nextRefreshDetail" class="sub">Calculando según la última lectura</div></div>
+    <div class="statusitem"><div class="label">Registros cargados</div><div id="recordCount" class="value">0</div></div>
+  </section>
+
+  <main class="grid">
+    <article class="card"><div class="metrichead"><div><div class="label">Temperatura</div><div class="sub">DHT22 / respaldo SCD41</div></div><div class="metricicon">🌡️</div></div><div class="metricvalue"><span id="temperature">—</span> <span class="unit">°C</span></div><div id="tempText" class="sub">Esperando datos</div><div class="meter"><span id="tempMeter"></span></div></article>
+    <article class="card"><div class="metrichead"><div><div class="label">Humedad</div><div class="sub">Humedad relativa</div></div><div class="metricicon">💧</div></div><div class="metricvalue"><span id="humidity">—</span> <span class="unit">%</span></div><div id="humText" class="sub">Esperando datos</div><div class="meter"><span id="humMeter"></span></div></article>
+    <article class="card"><div class="metrichead"><div><div class="label">Presión</div><div class="sub">Sensor BMP280</div></div><div class="metricicon">🧭</div></div><div class="metricvalue"><span id="pressure">—</span> <span class="unit">hPa</span></div><div id="pressureText" class="sub">Esperando datos</div><div class="meter"><span id="pressureMeter"></span></div></article>
+    <article class="card"><div class="metrichead"><div><div class="label">CO₂</div><div class="sub">Sensor SCD41</div></div><div class="metricicon">🌿</div></div><div class="metricvalue"><span id="co2">—</span> <span class="unit">ppm</span></div><div id="co2Text" class="sub">Esperando datos</div><div class="meter"><span id="co2Meter"></span></div></article>
+    <article class="card"><div class="metrichead"><div><div class="label">Altitud calculada</div><div class="sub">Referencia: 1012 hPa + ajuste</div></div><div class="metricicon">⛰️</div></div><div class="metricvalue"><span id="altitude">—</span> <span class="unit">m</span></div><div id="altitudeText" class="sub">Valor estimado por presión atmosférica</div><div class="meter"><span id="altMeter"></span></div></article>
+    <article class="card"><div class="metrichead"><div><div class="label">Señal Wi‑Fi</div><div class="sub">RSSI del ESP32</div></div><div class="metricicon">📶</div></div><div class="metricvalue"><span id="rssi">—</span> <span class="unit">dBm</span></div><div id="rssiText" class="sub">Esperando datos</div><div class="meter"><span id="rssiMeter"></span></div></article>
+  </main>
+
+  <section class="charts">
+    <article class="chartcard"><div class="charthead"><h2>Histórico de mediciones</h2><div class="seg" id="seriesButtons"><button data-series="temperature" class="active">Temperatura</button><button data-series="humidity">Humedad</button><button data-series="pressure">Presión</button><button data-series="co2">CO₂</button></div></div><div class="chartwrap"><canvas id="chart" aria-label="Gráfica histórica interactiva"></canvas></div><div id="selectionPanel" class="selectionPanel"><div class="selectionHint">Pulsa o toca un punto de la gráfica para ver todos los valores registrados en ese momento.</div></div></article>
+    <article class="chartcard alerts"><div class="charthead"><h2>Diagnóstico</h2></div><div id="alerts"><div class="empty">Los avisos aparecerán al cargar los datos.</div></div></article>
+  </section>
+
+  <section id="forecastSection" class="chartcard forecastSection hidden">
+    <div class="forecastToolbar">
+      <div><h2 style="margin:0">Previsión estadística para las próximas 24 horas</h2><div id="forecastInfo" class="sub">Calculada con las lecturas observadas durante los últimos cinco días.</div></div>
+      <div class="seg" id="forecastSeriesButtons"><button data-series="temperature" class="active">Temperatura</button><button data-series="humidity">Humedad</button><button data-series="pressure">Presión</button><button data-series="co2">CO₂</button></div>
+    </div>
+    <div id="forecastStats" class="forecastGrid"></div>
+    <div class="chartwrap"><canvas id="forecastChart" aria-label="Gráfica de previsión para 24 horas"></canvas></div>
+    <div class="notice"><b>Cómo interpretar la previsión:</b> es una estimación matemática obtenida de la repetición horaria, la tendencia reciente y la variabilidad de los últimos cinco días. No incorpora satélites, radar, viento ni modelos meteorológicos oficiales.</div>
+    <div id="forecastTableWrap" class="forecastTableWrap"></div>
+  </section>
+  <div class="footer">Aplicación local. La clave de escritura y la contraseña Wi‑Fi no se incluyen ni se necesitan. Los ajustes se guardan únicamente en este navegador.</div>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+ <div class="settings">
+  <h2>Configuración de la estación</h2>
+  <div class="notice"><b>Selecciona la estación</b> mediante su ID. La lista está integrada en la aplicación y no necesita archivos externos. Para un canal privado debes introducir su <b>Read API Key</b>.</div>
+  <div class="formgrid">
+   <div class="field"><label for="channelId">Canal de la estación</label><select id="channelId" aria-label="Seleccionar canal"></select></div>
+   <div class="field"><label>Clave API de lectura (opcional)</label><input id="readKey" type="password" autocomplete="off" placeholder="Solo para canal privado"></div>
+   <div class="field"><label>Número de registros</label><input id="resultsCount" type="number" min="10" max="8000" value="168"></div>
+   <div class="field"><label>Reintento si el dato se retrasa</label><select id="refreshMinutes"><option value="1">Cada 1 minuto</option><option value="2">Cada 2 minutos</option><option value="5" selected>Cada 5 minutos</option><option value="10">Cada 10 minutos</option></select></div>
+   <div class="field"><label>Altitud del lugar (metros)</label><input id="manualAltitude" type="number" min="-500" max="9000" step="1" placeholder="Ej.: 120"></div>
+   <div class="field"><label>Origen de la altitud</label><select id="altitudeMode"><option value="sensor">Usar valor enviado por Arduino</option><option value="manual">Usar altitud manual</option></select></div>
+   <div class="field"><label>Tema visual</label><select id="themeMode"><option value="auto">Automático (según el sistema)</option><option value="light">Claro</option><option value="dark">Oscuro</option></select></div>
+  </div>
+  <div class="actions"><button id="demoBtn">Cargar demostración</button><button id="closeBtn">Cancelar</button><button id="saveBtn" class="primary">Guardar y conectar</button></div>
+ </div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const els={temperature:$('#temperature'),humidity:$('#humidity'),pressure:$('#pressure'),co2:$('#co2'),altitude:$('#altitude'),rssi:$('#rssi')};
+const PRELOADED_CHANNELS=[{id:'3390790',name:'CEIP Santa Bárbara'},{id:'3328644',name:'IES San Nicolás (El Sauzal, Tenerife)'},{id:'3332396',name:'Luis Cobiella Cuevas (Santa Cruz de La Palma, La Palma)'},{id:'3330291',name:'IES LAS GALLETAS'},{id:'3370233',name:'CEIP EL CASTILLO (Fuerteventura)'}];
+const cfgDefault={channelId:PRELOADED_CHANNELS[0].id,readKey:'',results:168,refresh:5,altitudeMode:'sensor',manualAltitude:0,theme:'auto'};
+const STATION_INTERVAL_MS=60*60*1000; // El ESP32 registra una lectura cada hora
+const THINGSPEAK_GRACE_MS=20*1000; // Margen para que ThingSpeak publique el registro
+let cfg={...cfgDefault,...JSON.parse(localStorage.getItem('meteoCfg')||'{}')};
+let feeds=[], timer=null, countdownTimer=null, nextAt=0, lastFeedAt=0, expectedFeedAt=0, activeSeries='temperature', forecastSeries='temperature', demo=false, selectedIndex=null, chartState=null, forecastData=[];
+const series={temperature:{field:'field1',label:'Temperatura',unit:'°C'},humidity:{field:'field2',label:'Humedad',unit:'%'},pressure:{field:'field3',label:'Presión',unit:'hPa'},co2:{field:'field4',label:'CO₂',unit:'ppm'}};
+function num(v,d=1){const n=Number(v);return Number.isFinite(n)?n.toFixed(d):'—'}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
+function channelName(id){return PRELOADED_CHANNELS.find(c=>c.id===String(id))?.name||`Canal ${id}`;}
+function updateChannelIdentity(){const name=channelName(cfg.channelId);$('#brandSubtitle').textContent=`${name} · ESP32 + ThingSpeak`;document.title=`Monitor Estación Meteorológica · ${name}`;}
+function populateChannelSelect(){const sel=$('#channelId');sel.innerHTML=PRELOADED_CHANNELS.map(c=>`<option value="${c.id}">${c.id} — ${escapeHtml(c.name)}</option>`).join('');if(!PRELOADED_CHANNELS.some(c=>c.id===String(cfg.channelId)))cfg.channelId=PRELOADED_CHANNELS[0].id;sel.value=cfg.channelId;updateChannelIdentity();}
+function saveForm(){const manual=Number($('#manualAltitude').value);cfg={channelId:String($('#channelId').value||PRELOADED_CHANNELS[0].id),readKey:$('#readKey').value.trim(),results:Math.max(120,Math.min(8000,+$('#resultsCount').value||168)),refresh:+$('#refreshMinutes').value||5,altitudeMode:$('#altitudeMode').value==='manual'?'manual':'sensor',manualAltitude:Number.isFinite(manual)?manual:0,theme:['light','dark','auto'].includes($('#themeMode').value)?$('#themeMode').value:'auto'};localStorage.setItem('meteoCfg',JSON.stringify(cfg));applyTheme(cfg.theme);updateChannelIdentity();}
+function loadForm(){populateChannelSelect();$('#readKey').value=cfg.readKey;$('#resultsCount').value=cfg.results;$('#refreshMinutes').value=cfg.refresh;$('#altitudeMode').value=cfg.altitudeMode||'sensor';$('#manualAltitude').value=Number.isFinite(Number(cfg.manualAltitude))?cfg.manualAltitude:'';$('#themeMode').value=cfg.theme||'auto';}
+
+function resolvedTheme(mode=cfg.theme){return mode==='auto'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):mode;}
+function cssVar(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
+function updateThemeButton(){const r=resolvedTheme();$('#themeBtn').textContent=r==='dark'?'☀️ Claro':'🌙 Oscuro';$('#themeBtn').title=r==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro';}
+function applyTheme(mode=cfg.theme){const safe=['light','dark','auto'].includes(mode)?mode:'auto';document.documentElement.dataset.theme=resolvedTheme(safe);document.querySelector('meta[name="theme-color"]').setAttribute('content',resolvedTheme(safe)==='dark'?'#0b1f33':'#eef5fb');updateThemeButton();requestAnimationFrame(()=>{drawChart();drawForecastChart();});}
+function toggleTheme(){cfg.theme=resolvedTheme()==='dark'?'light':'dark';localStorage.setItem('meteoCfg',JSON.stringify(cfg));applyTheme(cfg.theme);if($('#themeMode'))$('#themeMode').value=cfg.theme;toast(cfg.theme==='dark'?'Modo oscuro activado':'Modo claro activado');}
+
+function setStatus(text,type='warn'){ $('#stationStatus').textContent=text; const d=$('#statusDot');d.style.background=type==='good'?'var(--good)':type==='bad'?'var(--bad)':'var(--warn)';}
+function qualityText(type,v){if(!Number.isFinite(v))return 'Dato no disponible';if(type==='temperature')return v<16?'Ambiente frío':v>28?'Ambiente caluroso':'Temperatura confortable';if(type==='humidity')return v<30?'Ambiente seco':v>70?'Humedad elevada':'Humedad adecuada';if(type==='pressure')return v<1000?'Presión baja':v>1025?'Presión alta':'Presión normal';if(type==='co2')return v<800?'Calidad del aire buena':v<1200?'Conviene ventilar':v<2000?'CO₂ elevado':'Ventilación urgente';if(type==='rssi')return v>-60?'Señal excelente':v>-70?'Señal buena':v>-80?'Señal débil':'Señal muy débil';}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function effectiveAltitude(f){const manual=Number(cfg.manualAltitude);return cfg.altitudeMode==='manual'&&Number.isFinite(manual)?manual:Number(f.field5);}
+function updateCards(f){const vals={temperature:+f.field1,humidity:+f.field2,pressure:+f.field3,co2:+f.field4,altitude:effectiveAltitude(f),rssi:+f.field6};els.temperature.textContent=num(vals.temperature);els.humidity.textContent=num(vals.humidity);els.pressure.textContent=num(vals.pressure);els.co2.textContent=num(vals.co2,0);els.altitude.textContent=num(vals.altitude,0);els.rssi.textContent=num(vals.rssi,0);$('#altitudeText').textContent=cfg.altitudeMode==='manual'?'Altitud introducida manualmente':'Valor estimado y enviado por Arduino';$('#tempText').textContent=qualityText('temperature',vals.temperature);$('#humText').textContent=qualityText('humidity',vals.humidity);$('#pressureText').textContent=qualityText('pressure',vals.pressure);$('#co2Text').textContent=qualityText('co2',vals.co2);$('#rssiText').textContent=qualityText('rssi',vals.rssi);$('#tempMeter').style.width=clamp((vals.temperature+5)/45*100,0,100)+'%';$('#humMeter').style.width=clamp(vals.humidity,0,100)+'%';$('#pressureMeter').style.width=clamp((vals.pressure-950)/100*100,0,100)+'%';$('#co2Meter').style.width=clamp(vals.co2/2500*100,0,100)+'%';$('#altMeter').style.width=clamp((vals.altitude+500)/9500*100,0,100)+'%';$('#rssiMeter').style.width=clamp((vals.rssi+100)/60*100,0,100)+'%';renderAlerts(vals);}
+function renderAlerts(v){let a=[];if(v.co2>=2000)a.push(['CO₂ muy alto','Ventila el espacio de inmediato.','bad']);else if(v.co2>=1200)a.push(['CO₂ elevado','Abre puertas o ventanas y comprueba la renovación del aire.','warn']);else if(v.co2>=800)a.push(['CO₂ moderado','Sería conveniente ventilar.','warn']);else a.push(['Calidad del aire','El nivel de CO₂ es adecuado.','']);if(v.humidity>70)a.push(['Humedad alta','Puede favorecer condensación y sensación de bochorno.','warn']);else if(v.humidity<30)a.push(['Ambiente seco','La humedad está por debajo del rango confortable.','warn']);else a.push(['Humedad','Se encuentra en un intervalo confortable.','']);if(v.rssi<-80)a.push(['Wi‑Fi muy débil','La estación podría fallar al enviar lecturas.','bad']);else if(v.rssi<-70)a.push(['Wi‑Fi débil','Conviene acercar el punto de acceso o mejorar la cobertura.','warn']);else a.push(['Conectividad','La señal Wi‑Fi es suficiente.','']);$('#alerts').innerHTML=a.map(x=>`<div class="alert ${x[2]}"><b>${x[0]}</b>${x[1]}</div>`).join('');}
+function latestValid(arr){for(let i=arr.length-1;i>=0;i--){if([1,2,3,4,5,6].some(n=>arr[i]['field'+n]!=null))return arr[i]}return null}
+function buildThingSpeakUrl(base='https://api.thingspeak.com'){
+  const channel=String(cfg.channelId||'').replace(/\D/g,'');
+  const params=new URLSearchParams({results:String(Math.max(120,cfg.results)),status:'true'});
+  if(cfg.readKey)params.set('api_key',cfg.readKey.trim());
+  params.set('_',String(Date.now()));
+  return `${base}/channels/${encodeURIComponent(channel)}/feeds.json?${params.toString()}`;
+}
+async function requestThingSpeak(base){
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),15000);
+  try{
+    const r=await fetch(buildThingSpeakUrl(base),{
+      method:'GET',cache:'no-store',mode:'cors',credentials:'omit',redirect:'follow',
+      referrerPolicy:'no-referrer',headers:{Accept:'application/json,text/plain,*/*'},signal:controller.signal
+    });
+    const raw=await r.text();
+    if(r.status===401||r.status===403)throw new Error('ACCESO_PRIVADO');
+    if(r.status===404)throw new Error('CANAL_NO_EXISTE');
+    if(!r.ok)throw new Error(`HTTP_${r.status}`);
+    if(raw.trim()==='-1'||raw.trim()==='0')throw new Error('ACCESO_PRIVADO');
+    let data;
+    try{data=JSON.parse(raw)}catch{throw new Error('RESPUESTA_NO_JSON')}
+    if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('RESPUESTA_INVALIDA');
+    return data;
+  }finally{clearTimeout(timeout)}
+}
+async function getThingSpeakData(){
+  const bases=['https://api.thingspeak.com','https://thingspeak.mathworks.com'];
+  let lastError=null;
+  for(const base of bases){
+    try{return await requestThingSpeak(base)}
+    catch(e){lastError=e;console.warn('Fallo en',base,e)}
+  }
+  const code=lastError?.name==='AbortError'?'TIMEOUT':String(lastError?.message||'ERROR_DESCONOCIDO');
+  if(code==='ACCESO_PRIVADO'){
+    if(!cfg.readKey)throw new Error('El canal parece ser privado. Introduce en Ajustes la Read API Key del canal. La Write API Key del archivo Arduino no sirve para leer datos.');
+    throw new Error('El canal es privado y la Read API Key introducida no es válida. Comprueba la clave en ThingSpeak > My Channels > API Keys.');
+  }
+  if(code==='CANAL_NO_EXISTE')throw new Error('ThingSpeak no reconoce el ID de canal indicado.');
+  if(code==='TIMEOUT')throw new Error('ThingSpeak no respondió dentro del tiempo de espera. Comprueba Internet, DNS o el bloqueo del navegador.');
+  if(code==='RESPUESTA_NO_JSON'||code==='RESPUESTA_INVALIDA')throw new Error('ThingSpeak respondió, pero no devolvió datos JSON válidos. Suele ocurrir cuando el canal es privado o la clave es incorrecta.');
+  if(code.startsWith('HTTP_'))throw new Error(`ThingSpeak devolvió el error ${code.replace('HTTP_','HTTP ')}.`);
+  throw new Error('No fue posible contactar con ThingSpeak desde este navegador. Prueba con Chrome o Edge y comprueba que api.thingspeak.com no esté bloqueado por la red.');
+}
+async function loadData(){
+  clearTimeout(timer);setStatus('Conectando…','warn');$('#refreshBtn').disabled=true;
+  try{
+    let data;
+    if(demo){data=demoData();}
+    else{
+      if(!cfg.channelId)throw new Error('Falta el ID del canal');
+      data=await getThingSpeakData();
+    }
+    feeds=(data.feeds||[]).filter(f=>f.created_at);
+    selectedIndex=null;renderSelection(null);
+    if(!feeds.length){
+      if(data.channel===undefined)throw new Error('La respuesta no corresponde a un canal accesible');
+      throw new Error('El canal existe, pero no contiene registros visibles. Puede ser privado o no haber recibido datos todavía');
+    }
+    const last=latestValid(feeds);
+    if(!last)throw new Error('Los registros no contienen valores en los campos 1 a 6');
+    updateCards(last);
+    const dt=new Date(last.created_at);
+    if(Number.isNaN(dt.getTime()))throw new Error('La fecha del último registro no es válida');
+    lastFeedAt=dt.getTime();expectedFeedAt=lastFeedAt+STATION_INTERVAL_MS;
+    $('#lastReading').textContent=dt.toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'});
+    $('#recordCount').textContent=feeds.length;
+    const age=(Date.now()-dt.getTime())/60000;
+    setStatus(age<=90?'En línea':age<=240?'Sin datos recientes':'Posible desconexión',age<=90?'good':age<=240?'warn':'bad');
+    drawChart();if(!$('#forecastSection').classList.contains('hidden'))generateForecast();toast(demo?'Demostración cargada':'Datos actualizados');
+  }catch(e){
+    console.error(e);setStatus('Error de conexión','bad');
+    $('#alerts').innerHTML=`<div class="alert bad"><b>No se pudieron cargar los datos</b>${escapeHtml(e.message)}.<br><br><b>Comprobaciones:</b> ID del canal <b>${escapeHtml(cfg.channelId||'vacío')}</b>, clave <b>${cfg.readKey?'introducida':'no introducida'}</b> y acceso a Internet del dispositivo.</div>`;
+    toast('No se pudieron cargar los datos');
+    if(!cfg.readKey && /privado|Read API Key/i.test(e.message)) setTimeout(()=>$('#modal').classList.add('open'),350);
+  }finally{$('#refreshBtn').disabled=false;schedule();}
+}
+function schedule(){
+  clearTimeout(timer);clearInterval(countdownTimer);
+  const now=Date.now();
+  if(!expectedFeedAt){
+    nextAt=now+cfg.refresh*60000;
+  }else if(now<expectedFeedAt+THINGSPEAK_GRACE_MS){
+    nextAt=expectedFeedAt+THINGSPEAK_GRACE_MS;
+  }else{
+    // La hora prevista ya pasó y aún no hay un registro nuevo: reintentar sin cambiar la hora esperada.
+    nextAt=now+cfg.refresh*60000;
+  }
+  timer=setTimeout(loadData,Math.max(1000,nextAt-now));
+  const tick=()=>{
+    const current=Date.now();
+    const detail=$('#nextRefreshDetail');
+    if(expectedFeedAt){
+      const expected=new Date(expectedFeedAt);
+      const expectedText=expected.toLocaleString('es-ES',{dateStyle:'short',timeStyle:'medium'});
+      if(current<=expectedFeedAt){
+        const s=Math.max(0,Math.ceil((expectedFeedAt-current)/1000));
+        $('#nextRefresh').textContent=formatCountdown(s);
+        detail.textContent=`Previsto: ${expectedText}`;
+      }else{
+        const retry=Math.max(0,Math.ceil((nextAt-current)/1000));
+        $('#nextRefresh').textContent='Esperando registro';
+        detail.textContent=`Previsto: ${expectedText} · nuevo intento en ${formatCountdown(retry)}`;
+      }
+    }else{
+      const s=Math.max(0,Math.ceil((nextAt-current)/1000));
+      $('#nextRefresh').textContent=formatCountdown(s);
+      detail.textContent='Sincronización pendiente';
+    }
+  };
+  tick();countdownTimer=setInterval(tick,1000);
+}
+function formatCountdown(totalSeconds){const s=Math.max(0,totalSeconds|0),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return h>0?`${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`:`${m}:${String(sec).padStart(2,'0')}`;}
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function renderSelection(index){const panel=$('#selectionPanel');if(index==null||!feeds[index]){panel.innerHTML='<div class="selectionHint">Pulsa o toca un punto de la gráfica para ver todos los valores registrados en ese momento.</div>';return}const f=feeds[index],dt=new Date(f.created_at),items=[['Temperatura',num(+f.field1)+' °C'],['Humedad',num(+f.field2)+' %'],['Presión',num(+f.field3)+' hPa'],['CO₂',num(+f.field4,0)+' ppm'],['Altitud',num(effectiveAltitude(f),0)+' m'+(cfg.altitudeMode==='manual'?' (manual)':'')],['Wi‑Fi',num(+f.field6,0)+' dBm']];panel.innerHTML=`<div class="selectionTitle"><b>Lectura seleccionada</b><span>${dt.toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}</span></div><div class="selectionGrid">${items.map(x=>`<div class="selectionItem"><span class="k">${x[0]}</span><span class="v">${x[1]}</span></div>`).join('')}</div>`}
+function drawChart(){const canvas=$('#chart'),box=canvas.getBoundingClientRect(),dpr=devicePixelRatio||1;canvas.width=Math.max(300,box.width*dpr);canvas.height=Math.max(220,box.height*dpr);const c=canvas.getContext('2d');c.scale(dpr,dpr);const w=box.width,h=box.height,p={l:52,r:16,t:18,b:38};c.clearRect(0,0,w,h);const meta=series[activeSeries];const pts=feeds.map((f,index)=>({x:new Date(f.created_at),y:Number(f[meta.field]),index})).filter(p=>Number.isFinite(p.y));if(pts.length<2){chartState=null;c.fillStyle=cssVar('--muted');c.textAlign='center';c.fillText('No hay suficientes datos',w/2,h/2);return}let ys=pts.map(p=>p.y),min=Math.min(...ys),max=Math.max(...ys);if(min===max){min-=1;max+=1}const pad=(max-min)*.12;min-=pad;max+=pad;const x0=pts[0].x.getTime(),x1=pts.at(-1).x.getTime(),X=t=>p.l+(t-x0)/(x1-x0||1)*(w-p.l-p.r),Y=v=>p.t+(max-v)/(max-min)*(h-p.t-p.b);chartState={pts:pts.map(q=>({...q,px:X(q.x.getTime()),py:Y(q.y)})),plot:p,width:w,height:h};c.strokeStyle=cssVar('--gridline');c.lineWidth=1;c.fillStyle=cssVar('--muted');c.font='11px system-ui';c.textAlign='right';for(let i=0;i<=4;i++){const y=p.t+i*(h-p.t-p.b)/4,val=max-i*(max-min)/4;c.beginPath();c.moveTo(p.l,y);c.lineTo(w-p.r,y);c.stroke();c.fillText(val.toFixed(activeSeries==='co2'?0:1),p.l-8,y+4)}c.textAlign='center';for(let i=0;i<=3;i++){const t=x0+i*(x1-x0)/3,x=X(t);c.fillText(new Date(t).toLocaleString('es-ES',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}),x,h-13)}const grad=c.createLinearGradient(0,p.t,0,h-p.b);grad.addColorStop(0,cssVar('--accentFill'));grad.addColorStop(1,cssVar('--accentFade'));c.beginPath();pts.forEach((q,i)=>{const x=X(q.x.getTime()),y=Y(q.y);i?c.lineTo(x,y):c.moveTo(x,y)});c.lineTo(X(pts.at(-1).x.getTime()),h-p.b);c.lineTo(X(pts[0].x.getTime()),h-p.b);c.closePath();c.fillStyle=grad;c.fill();c.beginPath();pts.forEach((q,i)=>{const x=X(q.x.getTime()),y=Y(q.y);i?c.lineTo(x,y):c.moveTo(x,y)});c.strokeStyle=cssVar('--accent');c.lineWidth=2.5;c.stroke();if(selectedIndex!=null){const q=chartState.pts.find(q=>q.index===selectedIndex);if(q){c.beginPath();c.moveTo(q.px,p.t);c.lineTo(q.px,h-p.b);c.strokeStyle=cssVar('--selectionLine');c.lineWidth=1;c.stroke();c.beginPath();c.arc(q.px,q.py,6,0,Math.PI*2);c.fillStyle=cssVar('--text');c.fill();c.beginPath();c.arc(q.px,q.py,3,0,Math.PI*2);c.fillStyle=cssVar('--accent');c.fill()}}c.fillStyle=cssVar('--text');c.textAlign='left';c.font='bold 12px system-ui';c.fillText(`${meta.label} · ${meta.unit}`,p.l,p.t-3)}
+function selectChartPoint(e){if(!chartState)return;const rect=$('#chart').getBoundingClientRect(),clientX=e.touches?e.touches[0].clientX:e.clientX,x=clientX-rect.left;let best=null,dist=Infinity;chartState.pts.forEach(q=>{const d=Math.abs(q.px-x);if(d<dist){dist=d;best=q}});if(best){selectedIndex=best.index;renderSelection(selectedIndex);drawChart()}}
+
+function validHistory(){
+  if(!feeds.length)return [];
+  const latest=Math.max(...feeds.map(f=>new Date(f.created_at).getTime()).filter(Number.isFinite));
+  const from=latest-5*24*60*60*1000;
+  return feeds.map(f=>({
+    time:new Date(f.created_at).getTime(),date:new Date(f.created_at),
+    temperature:Number(f.field1),humidity:Number(f.field2),pressure:Number(f.field3),co2:Number(f.field4)
+  })).filter(r=>Number.isFinite(r.time)&&r.time>=from).sort((a,b)=>a.time-b.time);
+}
+function avg(a){const v=a.filter(Number.isFinite);return v.length?v.reduce((x,y)=>x+y,0)/v.length:NaN}
+function stdev(a){const v=a.filter(Number.isFinite);if(v.length<2)return 0;const m=avg(v);return Math.sqrt(v.reduce((s,x)=>s+(x-m)**2,0)/(v.length-1))}
+function regressionSlope(values){const v=values.filter(Number.isFinite);if(v.length<3)return 0;const n=v.length,mx=(n-1)/2,my=avg(v);let num=0,den=0;for(let i=0;i<n;i++){num+=(i-mx)*(v[i]-my);den+=(i-mx)**2}return den?num/den:0}
+function boundsFor(key,v){if(key==='humidity')return clamp(v,0,100);if(key==='co2')return clamp(v,250,5000);if(key==='pressure')return clamp(v,870,1085);return clamp(v,-20,55)}
+function confidenceLabel(count,coverage){const score=Math.min(1,count/100)*Math.min(1,coverage/20);return score>.78?'Alta':score>.5?'Media':'Baja'}
+function buildForecast(){
+  const hist=validHistory();
+  if(hist.length<24)throw new Error(`Solo hay ${hist.length} lecturas recientes. Se necesitan al menos 24 y se recomiendan 120 para una previsión útil.`);
+  const last=hist.at(-1), keys=['temperature','humidity','pressure','co2'];
+  const out=[];
+  for(let step=1;step<=24;step++){
+    const date=new Date(last.time+step*3600000), row={date};
+    for(const key of keys){
+      const all=hist.map(r=>r[key]).filter(Number.isFinite), lastValue=[...hist].reverse().map(r=>r[key]).find(Number.isFinite);
+      const sameHour=hist.filter(r=>r.date.getHours()===date.getHours()&&Number.isFinite(r[key]));
+      let seasonal;
+      if(sameHour.length){let sw=0,sv=0;sameHour.forEach((r,i)=>{const ageDays=(last.time-r.time)/86400000,w=1/(1+ageDays*.35);sw+=w;sv+=r[key]*w});seasonal=sv/sw}else seasonal=avg(all);
+      const currentHourPeers=hist.filter(r=>r.date.getHours()===last.date.getHours()&&r.time<last.time&&Number.isFinite(r[key])).map(r=>r[key]);
+      const currentBaseline=currentHourPeers.length?avg(currentHourPeers):avg(all);
+      const anomaly=Number.isFinite(lastValue)?lastValue-currentBaseline:0;
+      const recent=hist.slice(-12).map(r=>r[key]);
+      let slope=regressionSlope(recent), sigma=stdev(all);
+      const maxSlope=(sigma||1)/8;slope=clamp(slope,-maxSlope,maxSlope);
+      const predicted=boundsFor(key,seasonal+anomaly*Math.exp(-step/9)+slope*step*Math.exp(-step/10));
+      const spread=Math.max(key==='pressure'?0.6:key==='co2'?25:0.4,sigma*(0.45+step/48));
+      row[key]=predicted;row[key+'Low']=boundsFor(key,predicted-spread);row[key+'High']=boundsFor(key,predicted+spread);
+    }
+    out.push(row);
+  }
+  return {hist,out,confidence:confidenceLabel(hist.length,new Set(hist.map(r=>r.date.getHours())).size)};
+}
+function generateForecast(){
+  const section=$('#forecastSection');section.classList.remove('hidden');
+  try{
+    const result=buildForecast();forecastData=result.out;
+    $('#forecastInfo').innerHTML=`Basada en <b>${result.hist.length}</b> lecturas de los últimos cinco días · confianza orientativa: <span class="confidence">${result.confidence}</span>`;
+    renderForecastStats();drawForecastChart();renderForecastTable();
+    section.scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){forecastData=[];$('#forecastInfo').textContent=e.message;$('#forecastStats').innerHTML='';$('#forecastTableWrap').innerHTML=`<div class="empty">${escapeHtml(e.message)}</div>`;drawForecastChart();section.scrollIntoView({behavior:'smooth',block:'start'});}
+}
+function renderForecastStats(){
+  if(!forecastData.length)return;
+  const m=series[forecastSeries], vals=forecastData.map(r=>r[forecastSeries]), min=Math.min(...vals),max=Math.max(...vals),mean=avg(vals),last=vals.at(-1),first=vals[0],trend=last-first;
+  const d=forecastSeries==='co2'?0:1;
+  $('#forecastStats').innerHTML=[['Media prevista',`${num(mean,d)} ${m.unit}`],['Mínimo previsto',`${num(min,d)} ${m.unit}`],['Máximo previsto',`${num(max,d)} ${m.unit}`],['Cambio en 24 h',`${trend>=0?'+':''}${num(trend,d)} ${m.unit}`]].map(x=>`<div class="forecastStat"><div class="label">${x[0]}</div><div class="big">${x[1]}</div></div>`).join('');
+}
+function drawForecastChart(){
+  const canvas=$('#forecastChart');if(!canvas)return;const box=canvas.getBoundingClientRect(),dpr=devicePixelRatio||1;canvas.width=Math.max(300,box.width*dpr);canvas.height=Math.max(220,box.height*dpr);const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);const w=box.width,h=box.height,p={l:55,r:16,t:22,b:38};c.clearRect(0,0,w,h);
+  if(!forecastData.length){c.fillStyle=cssVar('--muted');c.textAlign='center';c.fillText('No hay una previsión disponible',w/2,h/2);return}
+  const key=forecastSeries,m=series[key],vals=forecastData.flatMap(r=>[r[key+'Low'],r[key+'High']]),min=Math.min(...vals),max=Math.max(...vals),X=i=>p.l+i/(forecastData.length-1)*(w-p.l-p.r),Y=v=>p.t+(max-v)/(max-min||1)*(h-p.t-p.b);
+  c.strokeStyle=cssVar('--gridline');c.fillStyle=cssVar('--muted');c.font='11px system-ui';c.textAlign='right';for(let i=0;i<=4;i++){const y=p.t+i*(h-p.t-p.b)/4,v=max-i*(max-min)/4;c.beginPath();c.moveTo(p.l,y);c.lineTo(w-p.r,y);c.stroke();c.fillText(v.toFixed(key==='co2'?0:1),p.l-8,y+4)}
+  c.beginPath();forecastData.forEach((r,i)=>{const x=X(i),y=Y(r[key+'High']);i?c.lineTo(x,y):c.moveTo(x,y)});for(let i=forecastData.length-1;i>=0;i--)c.lineTo(X(i),Y(forecastData[i][key+'Low']));c.closePath();c.fillStyle=cssVar('--accentFill');c.fill();
+  c.beginPath();forecastData.forEach((r,i)=>{const x=X(i),y=Y(r[key]);i?c.lineTo(x,y):c.moveTo(x,y)});c.strokeStyle=cssVar('--accent');c.lineWidth=2.5;c.stroke();
+  c.textAlign='center';c.fillStyle=cssVar('--muted');for(let i=0;i<24;i+=6)c.fillText(forecastData[i].date.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}),X(i),h-13);c.fillStyle=cssVar('--text');c.textAlign='left';c.font='bold 12px system-ui';c.fillText(`${m.label} prevista · ${m.unit}`,p.l,14);
+}
+function renderForecastTable(){
+  if(!forecastData.length)return;const f=n=>num(n,1),i=n=>num(n,0);
+  $('#forecastTableWrap').innerHTML=`<table class="forecastTable"><thead><tr><th>Fecha y hora</th><th>Temperatura</th><th>Humedad</th><th>Presión</th><th>CO₂</th></tr></thead><tbody>${forecastData.map(r=>`<tr><td>${r.date.toLocaleString('es-ES',{weekday:'short',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}</td><td>${f(r.temperature)} °C<br><span class="sub">${f(r.temperatureLow)}–${f(r.temperatureHigh)}</span></td><td>${f(r.humidity)} %<br><span class="sub">${f(r.humidityLow)}–${f(r.humidityHigh)}</span></td><td>${f(r.pressure)} hPa<br><span class="sub">${f(r.pressureLow)}–${f(r.pressureHigh)}</span></td><td>${i(r.co2)} ppm<br><span class="sub">${i(r.co2Low)}–${i(r.co2High)}</span></td></tr>`).join('')}</tbody></table>`;
+}
+
+function demoData(){const now=Date.now(),arr=[];for(let i=167;i>=0;i--){const t=now-i*3600000;arr.push({created_at:new Date(t).toISOString(),field1:(22+Math.sin(i/5)*2+Math.random()*.5).toFixed(1),field2:(53+Math.cos(i/6)*8+Math.random()*2).toFixed(1),field3:(1014+Math.sin(i/9)*5).toFixed(1),field4:(620+Math.max(0,Math.sin(i/4))*420+Math.random()*40).toFixed(0),field5:(114+Math.random()*3).toFixed(1),field6:(-58-Math.random()*8).toFixed(0)});}return{feeds:arr}}
+$('#themeBtn').onclick=toggleTheme;$('#settingsBtn').onclick=()=>{loadForm();$('#modal').classList.add('open')};$('#closeBtn').onclick=()=>$('#modal').classList.remove('open');$('#modal').onclick=e=>{if(e.target===$('#modal'))$('#modal').classList.remove('open')};$('#saveBtn').onclick=()=>{const previous=cfg.channelId;saveForm();demo=false;selectedIndex=null;forecastData=[];$('#modal').classList.remove('open');if(previous!==cfg.channelId){feeds=[];renderSelection(null)}loadData()};$('#demoBtn').onclick=()=>{saveForm();demo=true;$('#modal').classList.remove('open');loadData()};$('#forecastBtn').onclick=()=>generateForecast();$('#refreshBtn').onclick=()=>loadData();$('#chart').addEventListener('click',selectChartPoint);$('#chart').addEventListener('touchstart',e=>{selectChartPoint(e)},{passive:true});$$('#seriesButtons button').forEach(b=>b.onclick=()=>{$$('#seriesButtons button').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeSeries=b.dataset.series;drawChart()});$$('#forecastSeriesButtons button').forEach(b=>b.onclick=()=>{$$('#forecastSeriesButtons button').forEach(x=>x.classList.remove('active'));b.classList.add('active');forecastSeries=b.dataset.series;renderForecastStats();drawForecastChart()});addEventListener('resize',()=>{clearTimeout(window.__rz);window.__rz=setTimeout(()=>{drawChart();drawForecastChart()},150)});matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>{if((cfg.theme||'auto')==='auto')applyTheme('auto')});if(!PRELOADED_CHANNELS.some(c=>c.id===String(cfg.channelId)))cfg.channelId=PRELOADED_CHANNELS[0].id;applyTheme(cfg.theme||'auto');loadForm();loadData();
+})();
+</script>
+</body>
+</html>
